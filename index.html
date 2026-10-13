@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Francisco Javier Luque · Desarrollador Web Junior</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F3F4F6;
+            --surface: #FFFFFF;
+            --ink: #121316;
+            --muted: #5A5E69;
+            --line: #D9DBE1;
+            --yellow: #FFD21F;
+            --on-yellow: #121316;
+            --display: 'Bricolage Grotesque', 'Arial Black', Arial, sans-serif;
+            --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0F1013;
+                --surface: #18191E;
+                --ink: #F3F4F6;
+                --muted: #A3A7B3;
+                --line: #2B2D35
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0F1013;
+            --surface: #18191E;
+            --ink: #F3F4F6;
+            --muted: #A3A7B3;
+            --line: #2B2D35
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px)
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 400 1.0625rem/1.65 var(--body)
+        }
+
+        a {
+            color: inherit
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--yellow);
+            outline-offset: 3px;
+            border-radius: 4px
+        }
+
+        .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        header {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            z-index: 5;
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line)
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 60px
+        }
+
+        nav .logo {
+            font: 800 1.15rem var(--display);
+            text-decoration: none;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .logo b {
+            background: var(--yellow);
+            color: var(--on-yellow);
+            padding: 2px 8px;
+            border-radius: 6px
+        }
+
+        nav a.l {
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 500;
+            font-size: .95rem
+        }
+
+        nav a.l:hover {
+            color: var(--ink)
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer
+        }
+
+        .icon {
+            background: none;
+            border: 1px solid var(--line);
+            color: var(--ink);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%
+        }
+
+        .hero {
+            padding: 72px 0 64px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 48px;
+            align-items: end
+        }
+
+        h1 {
+            font: 800 clamp(3rem, 9vw, 6.4rem)/.92 var(--display);
+            letter-spacing: -.035em;
+            margin: 0 0 28px
+        }
+
+        .role {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--on-yellow);
+            font: 800 clamp(1.1rem, 2.6vw, 1.5rem) var(--display);
+            padding: 4px 14px;
+            border-radius: 6px;
+            margin-bottom: 22px
+        }
+
+        .lead {
+            max-width: 56ch;
+            color: var(--muted);
+            font-size: 1.15rem;
+            margin: 0 0 30px
+        }
+
+        .btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 22px;
+            border-radius: 10px;
+            border: 2px solid var(--ink);
+            background: none;
+            color: var(--ink)
+        }
+
+        .btn.main {
+            background: var(--yellow);
+            border-color: var(--yellow);
+            color: var(--on-yellow)
+        }
+
+        .btn:hover {
+            transform: translateY(-2px)
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 24px
+        }
+
+        .fact {
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        .fact li {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: .97rem
+        }
+
+        .fact li:last-child {
+            border: 0
+        }
+
+        .fact span {
+            color: var(--muted)
+        }
+
+        .fact b {
+            font-weight: 600;
+            text-align: right
+        }
+
+        .dot {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #2BB673;
+            margin-right: 8px
+        }
+
+        section {
+            padding: 64px 0;
+            border-top: 1px solid var(--line)
+        }
+
+        h2 {
+            font: 800 clamp(1.8rem, 4vw, 2.5rem)/1.1 var(--display);
+            letter-spacing: -.02em;
+            margin: 0 0 8px
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 56px;
+            height: 6px;
+            background: var(--yellow);
+            margin-top: 14px;
+            border-radius: 3px
+        }
+
+        .sub {
+            color: var(--muted);
+            margin: 16px 0 36px;
+            max-width: 60ch
+        }
+
+        h3 {
+            font: 800 1.2rem var(--display);
+            margin: 0 0 6px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 0;
+            list-style: none
+        }
+
+        .chips li {
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 4px 12px;
+            font-size: .9rem;
+            background: var(--bg)
+        }
+
+        .tl {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 0 26px;
+            border-left: 3px solid var(--yellow)
+        }
+
+        .tl li {
+            position: relative;
+            padding-bottom: 36px
+        }
+
+        .tl li::before {
+            content: "";
+            position: absolute;
+            left: -36px;
+            top: 7px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 3px solid var(--yellow)
+        }
+
+        .when {
+            color: var(--muted);
+            font-size: .92rem;
+            font-weight: 500
+        }
+
+        .tl p {
+            margin: 6px 0 0;
+            max-width: 62ch
+        }
+
+        .proj {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px
+        }
+
+        .proj p {
+            color: var(--muted);
+            margin: 8px 0 0
+        }
+
+        .proj a {
+            font-weight: 600;
+            margin-top: 18px
+        }
+
+        .tag {
+            align-self: flex-start;
+            font-size: .8rem;
+            font-weight: 600;
+            background: var(--yellow);
+            color: var(--on-yellow);
+            padding: 2px 10px;
+            border-radius: 6px;
+            margin-bottom: 14px
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap
+        }
+
+        .filters button {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--ink);
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-weight: 500
+        }
+
+        .filters button[aria-pressed="true"] {
+            background: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink)
+        }
+
+        .contact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px
+        }
+
+        .contact a.row,
+        .contact .row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            padding: 16px 20px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--surface);
+            word-break: break-all
+        }
+
+        .contact a.row:hover {
+            border-color: var(--yellow)
+        }
+
+        .contact small {
+            display: block;
+            color: var(--muted);
+            font-size: .85rem
+        }
+
+        footer {
+            padding: 32px 0 48px;
+            color: var(--muted);
+            font-size: .9rem;
+            border-top: 1px solid var(--line)
+        }
+
+        @media (max-width:820px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 48px
+            }
+
+            .grid,
+            .contact {
+                grid-template-columns: 1fr
+            }
+
+            nav a.l {
+                display: none
+            }
+        }
+
+        @media (prefers-reduced-motion:no-preference) {
+            .hero h1 {
+                animation: rise .7s ease-out both
+            }
+
+            @keyframes rise {
+                from {
+                    opacity: 0;
+                    transform: translateY(24px)
+                }
+            }
+
+            .btn {
+                transition: transform .15s
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="wrap">
+            <nav>
+                <a class="logo" href="#top" aria-label="Inicio"><b>FJ</b>Luque</a>
+                <a class="l" href="#sobre-mi">Sobre mí</a><a class="l" href="#habilidades">Habilidades</a><a class="l"
+                    href="#experiencia">Experiencia</a><a class="l" href="#contacto">Contacto</a>
+                <button class="icon" id="theme" aria-label="Cambiar tema claro u oscuro">◐</button>
+            </nav>
+        </div>
+    </header>
+    <main id="top">
+        <div class="wrap hero">
+            <div>
+                <span class="role">Desarrollador Web Junior</span>
+                <h1>Francisco Javier Luque</h1>
+                <p class="lead">Estudiante de DAW y técnico en Sistemas Microinformáticos y Redes. Trabajo con HTML, CSS
+                    y Python y entiendo el hardware que hay debajo. Busco prácticas o un puesto junior.</p>
+                <div class="btns"><a class="btn main" href="#contacto">Hablemos</a><a class="btn"
+                        href="https://github.com/FJLS-FranLuque" target="_blank" rel="noopener">Ver GitHub</a></div>
+            </div>
+            <aside class="card" aria-label="Datos rápidos">
+                <ul class="fact">
+                    <li><span>Estado</span><b><i class="dot"></i>Disponible para prácticas</b></li>
+                    <li><span>Estudios</span><b>Grado Superior DAW</b></li>
+                    <li><span>Experiencia</span><b>Muebles Sarria</b></li>
+                    <li><span>Idiomas</span><b>Español · Inglés B1</b></li>
+                </ul>
+            </aside>
+        </div>
+
+        <section id="sobre-mi">
+            <div class="wrap">
+                <h2>Sobre mí</h2>
+                <p class="sub">Empecé por el hardware y llegué a la web. Esa mezcla me permite resolver problemas de
+                    principio a fin.</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Desarrollo</h3>
+                        <p>Mantuve y actualicé la web de una empresa real, con contenido y mejoras al día.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Sistemas y redes</h3>
+                        <p>Reparo equipos y resuelvo incidencias de TI con autonomía. Monto y mantengo PCs.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Aprendizaje</h3>
+                        <p>Cursos en Python, HTML y CSS y ciberseguridad. Actualmente cursando DAW.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="habilidades">
+            <div class="wrap">
+                <h2>Habilidades</h2>
+                <p class="sub">Las tecnologías con las que trabajo, agrupadas por área.</p>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Web</h3>
+                        <ul class="chips">
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>Diseño responsive</li>
+                            <li>Mantenimiento web</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Programación</h3>
+                        <ul class="chips">
+                            <li>Python</li>
+                            <li>Git y GitHub</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Hardware y redes</h3>
+                        <ul class="chips">
+                            <li>Montaje de PCs</li>
+                            <li>Reparación</li>
+                            <li>Redes</li>
+                            <li>Soporte TI</li>
+                            <li>Ciberseguridad</li>
+                            <li>Edición de vídeo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiencia">
+            <div class="wrap">
+                <h2>Experiencia y formación</h2>
+                <p class="sub">Trabajo real y estudios, del más reciente al más antiguo.</p>
+                <ol class="tl">
+                    <li><span class="when">2026</span>
+                        <h3>Desarrollador web y soporte TI · Muebles Sarria</h3>
+                        <p>Mantenimiento y actualización de la web de la empresa. Reparación de equipos y resolución de
+                            incidencias de TI.</p>
+                    </li>
+                    <li><span class="when">2026 – actualidad</span>
+                        <h3>Grado Superior en Desarrollo de Aplicaciones Web</h3>
+                        <p>Cursando.</p>
+                    </li>
+                    <li><span class="when">2024 – 2026</span>
+                        <h3>Grado Medio en Sistemas Microinformáticos y Redes</h3>
+                        <p>IES Isidro de Arcenegui y Carmona.</p>
+                    </li>
+                    <li><span class="when">2023 – 2024</span>
+                        <h3>Formación complementaria · Mastermind</h3>
+                        <p>Certificados en Python, HTML y CSS, ciberseguridad, montaje y mantenimiento de PC y edición
+                            de vídeo.</p>
+                    </li>
+                    <li><span class="when">2019 – 2023</span>
+                        <h3>E.S.O. · Colegio Santa Isabel</h3>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <div class="wrap">
+                <h2>Contacto</h2>
+                <p class="sub">Si tienes unas prácticas o un puesto junior, escríbeme. Respondo rápido.</p>
+                <div class="contact">
+                    <a class="row"
+                        href="mailto:fj.luquesantos@gmail.com"><span>✉</span><span><small>Email</small>fj.luquesantos@gmail.com</span></a>
+                    <a class="row" href="tel:+34744489428"><span>☎</span><span><small>Teléfono</small>744 48 94
+                            28</span></a>
+                    <a class="row" href="https://github.com/FJLS-FranLuque" target="_blank"
+                        rel="noopener"><span>⌘</span><span><small>GitHub</small>github.com/FJLS-FranLuque</span></a>
+                    <button class="row" id="copy" style="text-align:left;color:inherit"><span>⧉</span><span><small
+                                id="copyMsg">Copiar</small>Copiar mi email</span></button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="wrap">© 2026 Francisco Javier Luque</div>
+    </footer>
+
+    <script>
+        (function () {
+            var root = document.documentElement;
+            try { var t = localStorage.getItem('theme'); if (t) root.setAttribute('data-theme', t) } catch (e) { }
+            document.getElementById('theme').addEventListener('click', function () {
+                var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme') === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+                var n = dark ? 'light' : 'dark'; root.setAttribute('data-theme', n);
+                try { localStorage.setItem('theme', n) } catch (e) { }
+            });
+            document.getElementById('copy').addEventListener('click', function () {
+                var m = document.getElementById('copyMsg');
+                function ok() { m.textContent = '¡Copiado!'; setTimeout(function () { m.textContent = 'Copiar' }, 2000) }
+                try { navigator.clipboard.writeText('fj.luquesantos@gmail.com').then(ok, function () { m.textContent = 'Selecciona y copia el email de arriba' }) } catch (e) { m.textContent = 'Selecciona y copia el email de arriba' }
+            });
+        })();
+    </script>
+</body>
+
+</html>
